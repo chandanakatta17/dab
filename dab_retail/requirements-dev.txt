@@ -10,7 +10,7 @@
 #pytest
 
 ## Dependencies for building wheel files
-#setuptools
+setuptools
 #wheel
 
 ## databricks-connect can be used to run parts of this project locally.
