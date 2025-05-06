@@ -1,7 +1,7 @@
-name: Deploy to databricks
+name: Deploy to Databricks
 
 on:
-  workflow_dispatch: # Trigger manually from GitHub UI
+  workflow_dispatch:  # Trigger manually from GitHub UI
   push:
     branches:
       - main  # Trigger on push to the main branch
@@ -14,21 +14,19 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      
-       - name: Set up Python
+
+      - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.2'  
+          python-version: '3.8'  
 
-       - name: Install dependencies from requirements.txt
+      - name: Install dependencies from requirements.txt
         run: |
           cd dab_retail
-          pip install -r dab_retail/requirements.txt
+          pip install -r requirements.txt  # Install dependencies from dab_retail/requirements.txt
 
       - name: Setup Databricks CLI
-        uses: databricks/setup-cli
-        with:
-          version: '0.209.0'
+        uses: databricks/setup-cli@v0.2029.0  # Specify Databricks CLI version to ensure compatibility
 
       - name: Authenticate with Databricks (via PAT)
         run: |
@@ -37,5 +35,5 @@ jobs:
       - name: Deploy the Databricks Asset Bundle
         run: |
           cd dab_retail
-          databricks bundle validate
-          databricks bundle deploy --target development
+          databricks bundle validate  # Validate the bundle before deployment
+          databricks bundle deploy --target development  # Deploy the bundle to the development target
