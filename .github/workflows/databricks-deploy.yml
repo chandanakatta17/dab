@@ -23,7 +23,7 @@ jobs:
       - name: Install dependencies from requirements.txt
         run: |
           cd dab_retail
-          pip install -r requirements.txt  # Install dependencies from dab_retail/requirements.txt
+          pip install -r requirements-dev.txt  # Install dependencies from dab_retail/requirements.txt
 
       - name: Setup Databricks CLI
         uses: databricks/setup-cli@main # Specify Databricks CLI version to ensure compatibility
