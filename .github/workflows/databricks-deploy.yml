@@ -1,23 +1,19 @@
-name : Deploy to databricks
-
-on:
-  workflow_dispatch:
-
+name: Deploy to databricks
+'on':
+  workflow_dispatch: null
 jobs:
   deploy:
     name: Deploy bundle to development
-    runs-on : ubuntu-latest
+    runs-on: ubuntu-latest
   steps:
-    -name: Checkout code
-     uses: actions/checkout@v2
-
-    -name: Setup Databricks cli
-     uses: uses: databricks/setup-cli@@v0.2029.0
-
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Setup Databricks cli
+      uses: databricks/setup-cli@@v0.2029.0
     - name: Authenticate with Databricks (via PAT)
-      run: |
-        databricks configure --host ${{ secrets.DATABRICKS_HOST }} --token ${{ secrets.DATABRICKS_TOKEN }}
-
+      run: >
+        databricks configure --host ${{ secrets.DATABRICKS_HOST }} --token ${{
+        secrets.DATABRICKS_TOKEN }}
     - name: Deploy the Databricks Asset Bundle
       run: |
         cd dab_retail
