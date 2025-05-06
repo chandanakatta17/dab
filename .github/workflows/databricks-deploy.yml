@@ -32,7 +32,7 @@ jobs:
         run: |
           cd dab_retail
           databricks bundle validate  # Validate the bundle before deployment
-          databricks bundle deploy --target development  # Deploy the bundle to the development target
+          databricks bundle deploy --target dev  # Deploy the bundle to the development target
         env:
           DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
           DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
