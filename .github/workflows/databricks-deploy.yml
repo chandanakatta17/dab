@@ -28,12 +28,11 @@ jobs:
       - name: Setup Databricks CLI
         uses: databricks/setup-cli@main # Specify Databricks CLI version to ensure compatibility
 
-      - name: Authenticate with Databricks (via PAT)
-        run: |
-          databricks configure --host ${{ secrets.DATABRICKS_HOST }} --token ${{ secrets.DATABRICKS_TOKEN }}
-
       - name: Deploy the Databricks Asset Bundle
         run: |
           cd dab_retail
           databricks bundle validate  # Validate the bundle before deployment
           databricks bundle deploy --target development  # Deploy the bundle to the development target
+        env:
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
