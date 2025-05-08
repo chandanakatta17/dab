@@ -38,7 +38,6 @@ jobs:
           cd dab_trips
           export WORKSPACE_ENV="${{ inputs.env }}"
           export WORKSPACE_PROJECT_PATH="/Workspace/Users/cxk04781@ucmo.edu/.bundle/dab_trips/${WORKSPACE_ENV}"
-          WORKSPACE_PROJECT_PATH="/Workspace/Users/cxk04781@ucmo.edu/.bundle/dab_trips/${WORKSPACE_ENV}"
           echo "Resolved project path: $WORKSPACE_PROJECT_PATH"
           databricks bundle validate
           databricks bundle deploy --target ${WORKSPACE_ENV}
