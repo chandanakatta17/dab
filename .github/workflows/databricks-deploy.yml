@@ -16,9 +16,6 @@ jobs:
     name: Deploy to ${{ inputs.env }}
     runs-on: ubuntu-latest
 
-    env:
-      WORKSPACE_ENV: ${{ inputs.env }}
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -39,6 +36,8 @@ jobs:
       - name: Deploy the Databricks Asset Bundle
         run: |
           cd dab_trips
+          export WORKSPACE_ENV="${{ inputs.env }}"
+          export WORKSPACE_PROJECT_PATH="/Workspace/Users/cxk04781@ucmo.edu/.bundle/dab_trips/${WORKSPACE_ENV}"
           WORKSPACE_PROJECT_PATH="/Workspace/Users/cxk04781@ucmo.edu/.bundle/dab_trips/${WORKSPACE_ENV}"
           echo "Resolved project path: $WORKSPACE_PROJECT_PATH"
           databricks bundle validate
