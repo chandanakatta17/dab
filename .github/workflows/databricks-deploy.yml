@@ -6,6 +6,8 @@ on:
     branches:
       - main  # Trigger on push to the main branch
 
+WORKSPACE_ENV: dev
+
 jobs:
   deploy:
     name: Deploy bundle to development
@@ -32,7 +34,8 @@ jobs:
         run: |
           cd dab_trips
           databricks bundle validate  # Validate the bundle before deployment
-          databricks bundle deploy --target dev  # Deploy the bundle to the development target
+          databricks bundle deploy --target $WORKSPACE_ENV  # Deploy the bundle to the development target
+          databricks sync . $WORKSPACE_PROJECT_PATH --full
         env:
           DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
           DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
