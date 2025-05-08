@@ -6,12 +6,13 @@ on:
     branches:
       - main  # Trigger on push to the main branch
 
-WORKSPACE_ENV: dev
-
 jobs:
   deploy:
     name: Deploy bundle to development
     runs-on: ubuntu-latest
+    env:
+      WORKSPACE_ENV: dev
+      WORKSPACE_PROJECT_PATH: /Workspace/Users/cxk04781@ucmo.edu/.bundle/${bundle.name}/${bundle.target}
 
     steps:
       - name: Checkout code
