@@ -2,18 +2,18 @@ name: Deploy to Databricks
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main 
     inputs:
       env:
         description: 'Deployment environment (dev, staging, prod)'
         required: true
         default: 'dev'
+  push:
+    branches:
+      - main
 
 jobs:
   deploy:
-    name: Deploy to ${{ inputs.env }}
+    name: Deploy to Databricks env
     runs-on: ubuntu-latest
 
     steps:
