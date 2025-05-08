@@ -1,11 +1,11 @@
-# The main pipeline for dab_retail
+# The main pipeline for dab_trips
 resources:
   pipelines:
-    dab_retail_pipeline:
-      name: dab_retail_pipeline
+    dab_trips_pipeline:
+      name: dab_trips_pipeline
       ## Specify the 'catalog' field to configure this pipeline to make use of Unity Catalog:
       # catalog: catalog_name
-      schema: dab_retail_${bundle.target}
+      schema: dab_trips_${bundle.target}
       libraries:
         - notebook:
             path: ../src/dlt_pipeline.ipynb

@@ -1,8 +1,8 @@
-# The main job for dab_retail.
+# The main job for dab_trips.
 resources:
   jobs:
-    dab_retail_job:
-      name: dab_retail_job
+    dab_trips_job:
+      name: dab_trips_job
 
       trigger:
         # Run this job every day, exactly one day from the last run; see https://docs.databricks.com/api/workspace/jobs/create#trigger
@@ -24,17 +24,17 @@ resources:
           depends_on:
             - task_key: notebook_task
           pipeline_task:
-            pipeline_id: ${resources.pipelines.dab_retail_pipeline.id}
+            pipeline_id: ${resources.pipelines.dab_trips_pipeline.id}
 
         - task_key: main_task
           depends_on:
             - task_key: refresh_pipeline
           job_cluster_key: job_cluster
           python_wheel_task:
-            package_name: dab_retail
+            package_name: dab_trips
             entry_point: main
           libraries:
-            # By default we just include the .whl file generated for the dab_retail package.
+            # By default we just include the .whl file generated for the dab_trips package.
             # See https://docs.databricks.com/dev-tools/bundles/library-dependencies.html
             # for more information on how to add other libraries.
             - whl: ../dist/*.whl

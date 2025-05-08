@@ -1,8 +1,8 @@
-# This is a Databricks asset bundle definition for dab_retail.
+# This is a Databricks asset bundle definition for dab_trips.
 # See https://docs.databricks.com/dev-tools/bundles/index.html for documentation.
 bundle:
-  name: dab_retail
-  uuid: 4ecc73d5-47c0-45af-89a3-05e1957438b5
+  name: dab_trips
+  uuid: fb252316-6d3a-48cb-9a33-591cffc5661e
 
 include:
   - resources/*.yml

@@ -3,7 +3,7 @@ setup.py configuration script describing how to build and package this project.
 
 This file is primarily used by the setuptools library and typically should not
 be executed directly. See README.md for how to deploy, test, and run
-the dab_retail project.
+the dab_trips project.
 """
 
 from setuptools import setup, find_packages
@@ -13,23 +13,23 @@ import sys
 sys.path.append("./src")
 
 import datetime
-import dab_retail
+import dab_trips
 
 local_version = datetime.datetime.utcnow().strftime("%Y%m%d.%H%M%S")
 
 setup(
-    name="dab_retail",
+    name="dab_trips",
     # We use timestamp as Local version identifier (https://peps.python.org/pep-0440/#local-version-identifiers.)
     # to ensure that changes to wheel package are picked up when used on all-purpose clusters
-    version=dab_retail.__version__ + "+" + local_version,
+    version=dab_trips.__version__ + "+" + local_version,
     url="https://databricks.com",
     author="cxk04781@ucmo.edu",
-    description="wheel file based on dab_retail/src",
+    description="wheel file based on dab_trips/src",
     packages=find_packages(where="./src"),
     package_dir={"": "src"},
     entry_points={
         "packages": [
-            "main=dab_retail.main:main",
+            "main=dab_trips.main:main",
         ],
     },
     install_requires=[

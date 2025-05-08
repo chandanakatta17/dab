@@ -1,4 +1,4 @@
-from dab_retail.main import get_taxis, get_spark
+from dab_trips.main import get_taxis, get_spark
 
 
 def test_main():

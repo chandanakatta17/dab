@@ -30,7 +30,7 @@ jobs:
 
       - name: Deploy the Databricks Asset Bundle
         run: |
-          cd dab_retail
+          cd dab_trips
           databricks bundle validate  # Validate the bundle before deployment
           databricks bundle deploy --target dev  # Deploy the bundle to the development target
         env:
