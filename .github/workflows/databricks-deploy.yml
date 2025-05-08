@@ -16,6 +16,13 @@ jobs:
     name: Deploy to Databricks env
     runs-on: ubuntu-latest
 
+    env:
+      WORKSPACE_ENV: ${{ github.event_name == 'workflow_dispatch' && inputs.env || 'dev' }}
+      WORKSPACE_PROJECT_PATH: /Workspace/Users/cxk04781@ucmo.edu/.bundle/dab_trips/${{ github.event_name == 'workflow_dispatch' && inputs.env || 'dev' }}
+
+    steps:
+      - name: Checkout code
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -36,11 +43,10 @@ jobs:
       - name: Deploy the Databricks Asset Bundle
         run: |
           cd dab_trips
-          export WORKSPACE_ENV="${{ inputs.env }}"
-          export WORKSPACE_PROJECT_PATH="/Workspace/Users/cxk04781@ucmo.edu/.bundle/dab_trips/${WORKSPACE_ENV}"
-          echo "Resolved project path: $WORKSPACE_PROJECT_PATH"
+          echo "Environment: $WORKSPACE_ENV"
+          echo "Project path: $WORKSPACE_PROJECT_PATH"
           databricks bundle validate
-          databricks bundle deploy --target ${WORKSPACE_ENV}
+          databricks bundle deploy --target $WORKSPACE_ENV
           databricks sync . $WORKSPACE_PROJECT_PATH --full
         env:
           DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
