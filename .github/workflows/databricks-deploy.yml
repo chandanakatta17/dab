@@ -1,18 +1,23 @@
 name: Deploy to Databricks
 
 on:
-  workflow_dispatch:  # Trigger manually from GitHub UI
+  workflow_dispatch:
   push:
     branches:
-      - main  # Trigger on push to the main branch
+      - main 
+    inputs:
+      env:
+        description: 'Deployment environment (dev, staging, prod)'
+        required: true
+        default: 'dev'
 
 jobs:
   deploy:
-    name: Deploy bundle to development
+    name: Deploy to ${{ inputs.env }}
     runs-on: ubuntu-latest
+
     env:
-      WORKSPACE_ENV: dev
-      WORKSPACE_PROJECT_PATH: /Workspace/Users/cxk04781@ucmo.edu/.bundle/dab_trips/${WORKSPACE_ENV}
+      WORKSPACE_ENV: ${{ inputs.env }}
 
     steps:
       - name: Checkout code
@@ -21,22 +26,24 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.13' 
+          python-version: '3.13'
 
-      - name: Install dependencies from requirements.txt
+      - name: Install dependencies
         run: |
           cd dab_trips
-          pip install -r requirements-dev.txt  # Install dependencies from dab_retail/requirements.txt
+          pip install -r requirements-dev.txt
 
       - name: Setup Databricks CLI
-        uses: databricks/setup-cli@main # Specify Databricks CLI version to ensure compatibility
+        uses: databricks/setup-cli@main
 
       - name: Deploy the Databricks Asset Bundle
         run: |
           cd dab_trips
-          databricks bundle validate  # Validate the bundle before deployment
-          databricks bundle deploy --target ${WORKSPACE_ENV}  # Deploy the bundle to the development target
-          databricks sync . ${WORKSPACE_PROJECT_PATH} --full
+          WORKSPACE_PROJECT_PATH="/Workspace/Users/cxk04781@ucmo.edu/.bundle/dab_trips/${WORKSPACE_ENV}"
+          echo "Resolved project path: $WORKSPACE_PROJECT_PATH"
+          databricks bundle validate
+          databricks bundle deploy --target ${WORKSPACE_ENV}
+          databricks sync . $WORKSPACE_PROJECT_PATH --full
         env:
           DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
           DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
