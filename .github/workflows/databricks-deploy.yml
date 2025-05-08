@@ -35,6 +35,7 @@ jobs:
 
       - name: Deploy the Databricks Asset Bundle
         run: |
+          cd dab_trips
           ENV="${{ github.event.inputs.env || 'dev' }}"
           PROJECT_PATH="/Workspace/Users/cxk04781@ucmo.edu/.bundle/dab_trips/$ENV"
           echo "Environment: $ENV"
