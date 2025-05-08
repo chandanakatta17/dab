@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       WORKSPACE_ENV: dev
-      WORKSPACE_PROJECT_PATH: /Workspace/Users/cxk04781@ucmo.edu/.bundle/dab_trips/$WORKSPACE_ENV
+      WORKSPACE_PROJECT_PATH: /Workspace/Users/cxk04781@ucmo.edu/.bundle/dab_trips/${WORKSPACE_ENV}
 
     steps:
       - name: Checkout code
@@ -35,8 +35,8 @@ jobs:
         run: |
           cd dab_trips
           databricks bundle validate  # Validate the bundle before deployment
-          databricks bundle deploy --target $WORKSPACE_ENV  # Deploy the bundle to the development target
-          databricks sync . $WORKSPACE_PROJECT_PATH --full
+          databricks bundle deploy --target ${WORKSPACE_ENV}  # Deploy the bundle to the development target
+          databricks sync . ${WORKSPACE_PROJECT_PATH} --full
         env:
           DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
           DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
