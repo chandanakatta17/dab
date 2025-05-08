@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       WORKSPACE_ENV: dev
-      WORKSPACE_PROJECT_PATH: /Workspace/Users/cxk04781@ucmo.edu/.bundle/${bundle.name}/${bundle.target}
+      WORKSPACE_PROJECT_PATH: /Workspace/Users/cxk04781@ucmo.edu/.bundle/dab_trips/$WORKSPACE_ENV
 
     steps:
       - name: Checkout code
