@@ -38,7 +38,6 @@ jobs:
           cd dab_trips
           ENV="${{ github.event.inputs.env || 'dev' }}"
           echo "Environment: $ENV"
-          echo "Project path: $PROJECT_PATH"
           databricks bundle validate
           databricks bundle deploy --target "$ENV"
         env:
