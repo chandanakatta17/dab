@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: action/checkout@v3
+      - uses: action/checkout@v4
     
       - name: Setup Databricks CLI
         uses: databricks/setup-cli@main
