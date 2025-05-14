@@ -29,7 +29,7 @@ targets:
     mode: production
     workspace:
       host: https://adb-2137024003234611.11.azuredatabricks.net
-      root_path: ${var.root_path}
+      #root_path: ${var.root_path}
     # run_as:  
     #   service_principal_name: ${variables.service_principal_name}
     permissions:
