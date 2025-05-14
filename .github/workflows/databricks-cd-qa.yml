@@ -3,7 +3,7 @@ name: QA CICD Asset Bundle Pipeline
 on:
   push:
     branches:
-      - qa
+      - main
 
 jobs:
   validate:
