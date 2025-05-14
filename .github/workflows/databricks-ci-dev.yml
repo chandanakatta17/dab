@@ -18,7 +18,7 @@ on:
 
 jobs:
   validate:
-    name: "Asset Bundle Pipeline"
+    name: "Asset Bundle Pipeline - ${{ steps.set-env.outputs.env }}"
     runs-on: ubuntu-latest
 
     steps:
