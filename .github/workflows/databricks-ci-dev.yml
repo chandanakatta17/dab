@@ -56,7 +56,7 @@ jobs:
           cd dab_trips
           ENV="${{ github.event.inputs.env || 'dev' }}"
           echo "Environment: $ENV"
-          databricks bundle deploy --target=qa --auto-approve
+          databricks bundle deploy --target=dev --auto-approve
         env:
           DATABRICKS_BUNDLE_ENV: dev
           DATABRICKS_HOST: ${{ secrets.DEV_DATABRICKS_HOST }}
