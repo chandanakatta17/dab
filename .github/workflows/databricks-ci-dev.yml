@@ -18,7 +18,7 @@ on:
 
 jobs:
   validate:
-    name: "Asset Bundle Pipeline - ${{ steps.set-env.outputs.env }}"
+    name: Asset Bundle Pipeline
     runs-on: ubuntu-latest
 
     steps:
@@ -73,7 +73,7 @@ jobs:
             echo "DATABRICKS_TENANT_ID=${{ secrets.SP_TENANT_ID }}" >> $GITHUB_ENV
           fi
 
-      - name: Validate and Deploy Bundle
+      - name: "Validate and Deploy Bundle to ${{ steps.set-env.outputs.env }} environment"
         run: |
           cd dab_trips
           databricks bundle validate
