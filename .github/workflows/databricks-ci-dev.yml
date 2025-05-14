@@ -27,6 +27,11 @@ jobs:
       - name: Setup Databricks CLI
         uses: databricks/setup-cli@main
 
+      - name: Run tests
+        run: |
+          cd dab_trips
+          pytest tests/ --maxfail=1 --disable-warnings --tb=short
+
       - name: Validate Databricks bundle
         run: |
           cd dab_trips
