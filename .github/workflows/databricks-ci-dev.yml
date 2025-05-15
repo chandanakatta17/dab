@@ -1,7 +1,5 @@
 name: CI/CD Pipeline for Databricks Bundle
 
-concurrency: 1
-
 on:
   pull_request:
    branches:
@@ -12,9 +10,9 @@ on:
   workflow_dispatch:
     inputs:
       env:
-        description: 'Deployment environment (dev, qa, prod)'
+        description: 'Deployment environment (dev,prod)'
         required: true
-        default: 'prod'
+        default: 'dev'
 
 jobs:
   validate:
@@ -44,9 +42,7 @@ jobs:
           if [[ "${{ github.event_name }}" == "pull_request" ]]; then
             echo "env=dev" >> $GITHUB_OUTPUT
           elif [[ "${{ github.event_name }}" == "push" ]]; then
-            echo "env=qa" >> $GITHUB_OUTPUT
-          elif [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
-            echo "env=${{ github.event.inputs.env }}" >> $GITHUB_OUTPUT
+            echo "env=prod" >> $GITHUB_OUTPUT
           fi
 
       - name: Set Environment Secrets
@@ -58,11 +54,6 @@ jobs:
 
           if [[ "$ENV" == "dev" ]]; then
             echo "DATABRICKS_HOST=${{ secrets.DEV_DATABRICKS_HOST }}" >> $GITHUB_ENV
-            echo "DATABRICKS_CLIENT_ID=${{ secrets.DATABRICKS_CLIENT_ID }}" >> $GITHUB_ENV
-            echo "DATABRICKS_CLIENT_SECRET=${{ secrets.DATABRICKS_CLIENT_SECRET }}" >> $GITHUB_ENV
-            echo "DATABRICKS_TENANT_ID=${{ secrets.SP_TENANT_ID }}" >> $GITHUB_ENV
-          elif [[ "$ENV" == "qa" ]]; then
-            echo "DATABRICKS_HOST=${{ secrets.QA_DATABRICKS_HOST }}" >> $GITHUB_ENV
             echo "DATABRICKS_CLIENT_ID=${{ secrets.DATABRICKS_CLIENT_ID }}" >> $GITHUB_ENV
             echo "DATABRICKS_CLIENT_SECRET=${{ secrets.DATABRICKS_CLIENT_SECRET }}" >> $GITHUB_ENV
             echo "DATABRICKS_TENANT_ID=${{ secrets.SP_TENANT_ID }}" >> $GITHUB_ENV
@@ -78,16 +69,3 @@ jobs:
           cd dab_trips
           databricks bundle validate
           databricks bundle deploy --target=$DATABRICKS_BUNDLE_ENV --auto-approve
-
-      # - name: Validate and Deploy Databricks bundle
-      #   run: |
-      #     cd dab_trips
-      #     ENV="${{ github.event.inputs.env || 'dev' }}"
-      #     echo "Environment: $ENV"
-      #     databricks bundle validate
-      #     databricks bundle deploy --target=dev --auto-approve
-      #   env:
-      #     DATABRICKS_BUNDLE_ENV: dev
-      #     DATABRICKS_HOST: ${{ secrets.DEV_DATABRICKS_HOST }}
-      #     DATABRICKS_CLIENT_ID: ${{ secrets.DATABRICKS_CLIENT_ID }}
-      #     DATABRICKS_CLIENT_SECRET: ${{ secrets.DATABRICKS_CLIENT_SECRET }}
