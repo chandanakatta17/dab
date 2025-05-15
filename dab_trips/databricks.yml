@@ -2,7 +2,7 @@
 # See https://docs.databricks.com/dev-tools/bundles/index.html for documentation.
 bundle:
   name: dab_trips_bundles
-  uuid: fb252316-6d3a-48cb-9a33-591cffc5661e
+  #uuid: fb252316-6d3a-48cb-9a33-591cffc5661e
 
 include:
   - resources/*.yml
@@ -16,22 +16,25 @@ targets:
     mode: development
     default: true
     workspace:
-      host: ${secrets.DATABRICKS_HOST}
-      #host: https://adb-2137024003234611.11.azuredatabricks.net
-      root_path: /Users/${env.SERVICE_PRINCIPAL_ID}/.bundle/${bundle.name}/${bundle.target}
-      #root_path: /Users/${env.SERVICE_PRINCIPAL_ID}/.bundle/${bundle.name}/${bundle.target}
+      #host: "{{env.DATABRICKS_HOST}}"
+      host: https://adb-2137024003234611.11.azuredatabricks.net
+      #root_path: ~/Users/{{env.DATABRICKS_CLIENT_ID}/.bundle/${bundle.name}/${bundle.target}
+      #root_path: /Users/${DATABRICKS_CLIENT_ID}/.bundle/${bundle.name}/${bundle.target}
 
   prod:
     mode: production
     workspace:
-      #host: https://adb-2137024003234611.11.azuredatabricks.net
-      root_path: /Users/${env.SERVICE_PRINCIPAL_ID}/.bundle/${bundle.name}/${bundle.target}
-      host: ${secrets.DATABRICKS_HOST}
+      host: https://adb-2137024003234611.11.azuredatabricks.net
+      root_path: /Workspace/Users/84e70def-a551-4599-bf6e-ab9f3698008a/.bundle/${bundle.name}/${bundle.target}
+      #root_path: /.bundle/${bundle.name}/${bundle.target}
+      #host: ${secrets.DATABRICKS_HOST}
       # We explicitly deploy to /Workspace/Users/cxk04781@ucmo.edu to make sure we only have a single copy.
     run_as:  
-      service_principal_name: ${secrets.DATABRICKS_CLIENT_ID}
+      service_principal_name: "84e70def-a551-4599-bf6e-ab9f3698008a"
+      #user_name: 4e70def-a551-4599-bf6e-ab9f3698008a
     permissions:
       - level: CAN_MANAGE
-        group_name: Databricks_Admin
+        #group_name: Databricks_Admin
+        service_principal_name: "84e70def-a551-4599-bf6e-ab9f3698008a"
       - level: CAN_VIEW
         group_name: Databricks_DE_PROD
