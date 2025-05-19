@@ -25,16 +25,16 @@ targets:
     mode: production
     workspace:
       host: https://adb-2137024003234611.11.azuredatabricks.net
-      root_path: /Workspace/Users/84e70def-a551-4599-bf6e-ab9f3698008a/.bundle/${bundle.name}/${bundle.target}
+      root_path: /Workspace/Users/1332a133-9552-4944-a877-4fcc838c50cf/.bundle/${bundle.name}/${bundle.target}
       #root_path: /.bundle/${bundle.name}/${bundle.target}
       #host: ${secrets.DATABRICKS_HOST}
       # We explicitly deploy to /Workspace/Users/cxk04781@ucmo.edu to make sure we only have a single copy.
     run_as:  
-      service_principal_name: "84e70def-a551-4599-bf6e-ab9f3698008a"
+      service_principal_name: "1332a133-9552-4944-a877-4fcc838c50cf"
       #user_name: 4e70def-a551-4599-bf6e-ab9f3698008a
     permissions:
       - level: CAN_MANAGE
         #group_name: Databricks_Admin
-        service_principal_name: "84e70def-a551-4599-bf6e-ab9f3698008a"
+        service_principal_name: "1332a133-9552-4944-a877-4fcc838c50cf"
       - level: CAN_VIEW
         group_name: Databricks_DE_PROD
